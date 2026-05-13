@@ -1,0 +1,193 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:JewelryStoreCashFlowTracker.ViewModels"
+             x:Class="JewelryStoreCashFlowTracker.Views.DayHistoryView"
+             x:DataType="vm:DayHistoryViewModel">
+
+    <Design.DataContext>
+        <vm:DayHistoryViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*" Margin="24">
+        <!-- Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,16">
+            <TextBlock Grid.Column="0"
+                       Text="Day History"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#212121"
+                       VerticalAlignment="Center" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12">
+                <Button Content="Refresh"
+                        Command="{Binding LoadSessionsCommand}"
+                        Padding="16,8"
+                        CornerRadius="4" />
+                <Button Content="Back to Dashboard"
+                        Command="{Binding BackToDashboardCommand}"
+                        Padding="16,8"
+                        CornerRadius="4" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Content -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" Margin="0,0,0,24">
+            <!-- Sessions List -->
+            <Border Grid.Column="0"
+                    Classes="card"
+                    Background="White"
+                    BorderBrush="#E0E0E0"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Margin="0,0,12,0">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Grid.Row="0"
+                               Text="Previous Days"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Margin="16,16,16,8" />
+                    <ScrollViewer Grid.Row="1" Margin="8,0,8,8">
+                        <ListBox ItemsSource="{Binding Sessions}"
+                                 SelectedItem="{Binding SelectedSession}"
+                                 IsVisible="{Binding HasSessions}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="12,8"
+                                            Background="Transparent">
+                                        <Grid ColumnDefinitions="*,Auto,Auto">
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding Date, StringFormat='{}{0:yyyy-MM-dd}'}"
+                                                       FontSize="16"
+                                                       FontWeight="SemiBold" />
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding InitialCash, StringFormat='{}{0:C}'}"
+                                                       FontSize="14"
+                                                       Foreground="#757575"
+                                                       Margin="12,0" />
+                                            <Border Grid.Column="2"
+                                                    Background="#4CAF50"
+                                                    CornerRadius="4"
+                                                    Padding="8,4"
+                                                    IsVisible="{Binding IsClosed}">
+                                                <TextBlock Text="Closed"
+                                                           FontSize="11"
+                                                           FontWeight="Bold"
+                                                           Foreground="White" />
+                                            </Border>
+                                            <Border Grid.Column="2"
+                                                    Background="#FF9800"
+                                                    CornerRadius="4"
+                                                    Padding="8,4"
+                                                    IsVisible="{Binding !IsClosed}">
+                                                <TextBlock Text="Open"
+                                                           FontSize="11"
+                                                           FontWeight="Bold"
+                                                           Foreground="White" />
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                    <TextBlock Grid.Row="1"
+                               Text="No history available. Start your first day!"
+                               IsVisible="{Binding !HasSessions}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="#757575"
+                               FontSize="14"
+                               Margin="20" />
+                </Grid>
+            </Border>
+
+            <!-- Session Details -->
+            <Border Grid.Column="1"
+                    Classes="card"
+                    Background="White"
+                    BorderBrush="#E0E0E0"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Margin="12,0,0,0"
+                    IsVisible="{Binding SelectedSession, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <Grid RowDefinitions="Auto,Auto,Auto,*" Margin="16">
+                    <!-- Header -->
+                    <TextBlock Grid.Row="0"
+                               Text="{Binding SelectedSession.Date, StringFormat='Day: {0:yyyy-MM-dd}'}"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Margin="0,0,0,16" />
+
+                    <!-- Balance -->
+                    <Border Grid.Row="1"
+                            Background="#3F51B5"
+                            CornerRadius="8"
+                            Padding="16"
+                            Margin="0,0,0,16">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Grid.Column="0"
+                                       Text="Final Balance"
+                                       FontSize="12"
+                                       Opacity="0.8"
+                                       Foreground="White" />
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding SelectedSessionBalance, StringFormat='{}{0:C}'}"
+                                       FontSize="24"
+                                       FontWeight="Bold"
+                                       Foreground="White" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Details Grid -->
+                    <Grid Grid.Row="2" ColumnDefinitions="*,*" Margin="0,0,0,16">
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                            <TextBlock Text="Initial Cash"
+                                       FontSize="12"
+                                       Foreground="#757575" />
+                            <TextBlock Text="{Binding SelectedSession.InitialCash, StringFormat='{}{0:C}'}"
+                                       FontSize="16"
+                                       FontWeight="SemiBold" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                            <TextBlock Text="Transactions"
+                                       FontSize="12"
+                                       Foreground="#757575" />
+                            <TextBlock Text="{Binding SelectedSession.Transactions.Count}"
+                                       FontSize="16"
+                                       FontWeight="SemiBold" />
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Transactions List -->
+                    <Border Grid.Row="3"
+                            Background="#FAFAFA"
+                            CornerRadius="8"
+                            Padding="12">
+                        <ScrollViewer>
+                            <ItemsControl ItemsSource="{Binding SelectedSession.Transactions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,4">
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{Binding CreatedAt, StringFormat='{}{0:HH:mm}'}"
+                                                       FontSize="12"
+                                                       Foreground="#757575"
+                                                       Width="50" />
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding Description}"
+                                                       FontSize="13"
+                                                       TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Grid.Column="2"
+                                                       Text="{Binding Amount, StringFormat='{}{0:C}'}"
+                                                       FontSize="13"
+                                                       FontWeight="SemiBold" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

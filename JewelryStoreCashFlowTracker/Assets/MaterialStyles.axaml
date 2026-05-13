@@ -1,0 +1,100 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Material Design Colors as Resources -->
+    <Styles.Resources>
+        <Color x:Key="MaterialPrimaryColor">#3F51B5</Color>
+        <Color x:Key="MaterialPrimaryDarkColor">#303F9F</Color>
+        <Color x:Key="MaterialPrimaryLightColor">#C5CAE9</Color>
+        <Color x:Key="MaterialAccentColor">#FF4081</Color>
+
+        <!-- Transaction Type Colors -->
+        <Color x:Key="SaleColor">#4CAF50</Color>
+        <Color x:Key="SaleLightColor">#E8F5E9</Color>
+        <Color x:Key="PurchaseColor">#F44336</Color>
+        <Color x:Key="PurchaseLightColor">#FFEBEE</Color>
+        <Color x:Key="ExpenseColor">#FF9800</Color>
+        <Color x:Key="ExpenseLightColor">#FFF3E0</Color>
+
+        <!-- Brushes -->
+        <SolidColorBrush x:Key="SaleBrush" Color="{StaticResource SaleColor}"/>
+        <SolidColorBrush x:Key="SaleLightBrush" Color="{StaticResource SaleLightColor}"/>
+        <SolidColorBrush x:Key="PurchaseBrush" Color="{StaticResource PurchaseColor}"/>
+        <SolidColorBrush x:Key="PurchaseLightBrush" Color="{StaticResource PurchaseLightColor}"/>
+        <SolidColorBrush x:Key="ExpenseBrush" Color="{StaticResource ExpenseColor}"/>
+        <SolidColorBrush x:Key="ExpenseLightBrush" Color="{StaticResource ExpenseLightColor}"/>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource MaterialPrimaryColor}"/>
+        <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource MaterialPrimaryDarkColor}"/>
+    </Styles.Resources>
+
+    <!-- Card Style -->
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="BoxShadow" Value="0 2 4 0 #20000000"/>
+        <Setter Property="Padding" Value="20"/>
+    </Style>
+
+    <!-- Elevated Card Style -->
+    <Style Selector="Border.elevated">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="BoxShadow" Value="0 8 24 0 #40000000"/>
+        <Setter Property="Padding" Value="32"/>
+    </Style>
+
+    <!-- Metric Card Style -->
+    <Style Selector="Border.metric">
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Padding" Value="20"/>
+    </Style>
+
+    <!-- Dialog Style -->
+    <Style Selector="Border.dialog">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="CornerRadius" Value="16"/>
+        <Setter Property="BoxShadow" Value="0 8 32 0 #40000000"/>
+        <Setter Property="Padding" Value="40"/>
+    </Style>
+
+    <!-- Primary Button Style -->
+    <Style Selector="Button.primary">
+        <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Padding" Value="20,12"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <!-- Sale Button Style -->
+    <Style Selector="Button.sale">
+        <Setter Property="Background" Value="{StaticResource SaleBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Padding" Value="20,12"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <!-- Purchase Button Style -->
+    <Style Selector="Button.purchase">
+        <Setter Property="Background" Value="{StaticResource PurchaseBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Padding" Value="20,12"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <!-- Expense Button Style -->
+    <Style Selector="Button.expense">
+        <Setter Property="Background" Value="{StaticResource ExpenseBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Padding" Value="20,12"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+</Styles>

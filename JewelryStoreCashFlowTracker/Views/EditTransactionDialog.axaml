@@ -1,0 +1,78 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:JewelryStoreCashFlowTracker.ViewModels"
+        mc:Ignorable="d"
+        d:DesignWidth="450"
+        d:DesignHeight="300"
+        x:Class="JewelryStoreCashFlowTracker.Views.EditTransactionDialog"
+        x:DataType="vm:EditTransactionDialogViewModel"
+        Title="{Binding Title}"
+        Width="450"
+        Height="300"
+        WindowStartupLocation="CenterOwner">
+
+    <Border Classes="dialog"
+            Padding="24">
+        <Grid RowDefinitions="Auto,*,Auto">
+            <!-- Header -->
+            <TextBlock Grid.Row="0"
+                       Text="{Binding Title}"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#212121"
+                       Margin="0,0,0,20" />
+
+            <!-- Form -->
+            <StackPanel Grid.Row="1"
+                        Spacing="16">
+                <!-- Description -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Description"
+                               FontWeight="Medium"
+                               Foreground="#616161" />
+                    <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                             Watermark="Enter description"
+                             FontSize="16" />
+                </StackPanel>
+
+                <!-- Amount -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Amount"
+                               FontWeight="Medium"
+                               Foreground="#616161" />
+                    <TextBox Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}"
+                             Watermark="Enter amount"
+                             FontSize="16" />
+                </StackPanel>
+
+                <!-- Error Message -->
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="#F44336"
+                           TextWrapping="Wrap"
+                           IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+            </StackPanel>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="12"
+                        Margin="0,24,0,0">
+                <Button Content="Cancel"
+                        Command="{Binding CancelCommand}"
+                        Background="#9E9E9E"
+                        Foreground="White"
+                        Padding="25,10"
+                        FontSize="16" />
+                <Button Content="Save"
+                        Command="{Binding SaveCommand}"
+                        Background="#4CAF50"
+                        Foreground="White"
+                        Padding="25,10"
+                        FontSize="16" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

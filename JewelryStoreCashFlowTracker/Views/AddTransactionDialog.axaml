@@ -1,0 +1,96 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:JewelryStoreCashFlowTracker.ViewModels"
+             x:Class="JewelryStoreCashFlowTracker.Views.AddTransactionDialog"
+             x:DataType="vm:AddTransactionDialogViewModel"
+             Width="450"
+             Height="320">
+
+    <Design.DataContext>
+        <vm:AddTransactionDialogViewModel />
+    </Design.DataContext>
+
+    <Border Background="White"
+            CornerRadius="16"
+            BoxShadow="0 8 32 0 #40000000"
+            Padding="40">
+        <Grid RowDefinitions="Auto,*,Auto">
+            <!-- Header -->
+            <TextBlock Grid.Row="0"
+                       Text="{Binding Title}"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Margin="0,0,0,24"
+                       HorizontalAlignment="Center" />
+
+            <!-- Content -->
+            <StackPanel Grid.Row="1" Spacing="20">
+                <!-- Description -->
+                <StackPanel>
+                    <TextBlock Text="DESCRIPTION"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Foreground="#757575"
+                               Margin="0,0,0,8" />
+                    <Border Background="#F5F5F5"
+                            CornerRadius="8"
+                            Padding="12,4">
+                        <TextBox Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Watermark="Enter description..."
+                                 FontSize="16"
+                                 BorderThickness="0"
+                                 Background="Transparent" />
+                    </Border>
+                </StackPanel>
+
+                <!-- Amount -->
+                <StackPanel>
+                    <TextBlock Text="AMOUNT"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Foreground="#757575"
+                               Margin="0,0,0,8" />
+                    <Border Background="#F5F5F5"
+                            CornerRadius="8"
+                            Padding="12,4">
+                        <TextBox Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Watermark="0.00"
+                                 FontSize="20"
+                                 FontWeight="SemiBold"
+                                 BorderThickness="0"
+                                 Background="Transparent" />
+                    </Border>
+                </StackPanel>
+
+                <!-- Error Message -->
+                <Border Background="#FFEBEE"
+                        CornerRadius="8"
+                        Padding="12"
+                        IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Foreground="#C62828"
+                               FontSize="13"
+                               TextWrapping="Wrap" />
+                </Border>
+            </StackPanel>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Spacing="15"
+                        Margin="0,20,0,0">
+                <Button Content="Save"
+                        Command="{Binding SaveCommand}"
+                        Background="#4CAF50"
+                        Foreground="White"
+                        Padding="25,10"
+                        FontSize="16" />
+                <Button Content="Cancel"
+                        Command="{Binding CancelCommand}"
+                        Padding="20,10"
+                        FontSize="16" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

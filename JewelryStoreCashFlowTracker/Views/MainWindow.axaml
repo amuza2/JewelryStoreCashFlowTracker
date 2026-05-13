@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:JewelryStoreCashFlowTracker.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="650"
+        x:Class="JewelryStoreCashFlowTracker.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="{Binding Title}"
+        MinWidth="800"
+        MinHeight="600">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="*,Auto">
+        <!-- Main content area that switches between views -->
+        <Border Grid.Row="0" Background="#FAFAFA">
+        <ContentControl Content="{Binding CurrentView}" />
+        </Border>
+
+        <!-- Action Buttons (only visible when dashboard is shown) -->
+        <Border Grid.Row="1"
+                Background="White"
+                BorderBrush="#E0E0E0"
+                BorderThickness="0,1,0,0"
+                Padding="20,16"
+                IsVisible="{Binding IsDashboardVisible}">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Spacing="12">
+                <Button Content="+ Money Enter"
+                        Command="{Binding DashboardViewModel.AddMoneyEnterCommand}"
+                        Classes="sale" />
+
+                <Button Content="- Money Leave"
+                        Command="{Binding DashboardViewModel.AddMoneyLeaveCommand}"
+                        Classes="purchase" />
+
+                <Button Content="Close Day"
+                        Command="{Binding DashboardViewModel.CloseDayCommand}"
+                        Classes="primary" />
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>

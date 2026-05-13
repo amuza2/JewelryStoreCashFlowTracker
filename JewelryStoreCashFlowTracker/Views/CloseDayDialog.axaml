@@ -1,0 +1,104 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:JewelryStoreCashFlowTracker.ViewModels"
+             x:Class="JewelryStoreCashFlowTracker.Views.CloseDayDialog"
+             x:DataType="vm:CloseDayDialogViewModel"
+             Width="400"
+             Height="380">
+
+    <Design.DataContext>
+        <vm:CloseDayDialogViewModel />
+    </Design.DataContext>
+
+    <Border Background="White"
+            CornerRadius="8"
+            BoxShadow="0 2 10 0 #40000000"
+            Padding="30">
+        <Grid RowDefinitions="Auto,*,Auto">
+            <!-- Header -->
+            <TextBlock Grid.Row="0"
+                       Text="Close Day"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Margin="0,0,0,20"
+                       HorizontalAlignment="Center" />
+
+            <!-- Content -->
+            <StackPanel Grid.Row="1" Spacing="15">
+                <!-- Expected Cash (Read-only) -->
+                <Border Background="#E3F2FD"
+                        CornerRadius="4"
+                        Padding="15">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Grid.Column="0"
+                                   Text="Expected Cash"
+                                   FontSize="14"
+                                   Foreground="#1565C0" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding ExpectedCash, StringFormat='{}{0:C}'}"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="#1565C0" />
+                    </Grid>
+                </Border>
+
+                <!-- Counted Cash -->
+                <StackPanel>
+                    <TextBlock Text="Counted Cash"
+                               FontSize="12"
+                               Foreground="#666"
+                               Margin="0,0,0,5" />
+                    <TextBox Text="{Binding CountedCash, Mode=TwoWay}"
+                             Watermark="Enter counted amount"
+                             FontSize="18"
+                             Height="45" />
+                </StackPanel>
+
+                <!-- Difference -->
+                <Border Background="#F5F5F5"
+                        CornerRadius="4"
+                        Padding="15">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Grid.Column="0"
+                                   Text="Difference"
+                                   FontSize="14" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding Difference, StringFormat='{}{0:C}'}"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="#333" />
+                    </Grid>
+                </Border>
+
+                <TextBlock Text="Enter the actual cash counted from the register. Positive difference = surplus, Negative = shortage."
+                           FontSize="11"
+                           Foreground="#666"
+                           TextWrapping="Wrap" />
+
+                <!-- Error Message -->
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="#F44336"
+                           TextWrapping="Wrap"
+                           IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+            </StackPanel>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Spacing="15"
+                        Margin="0,20,0,0">
+                <Button Content="Confirm Close"
+                        Command="{Binding ConfirmCommand}"
+                        IsEnabled="{Binding CanConfirm}"
+                        Background="#F44336"
+                        Foreground="White"
+                        Padding="20,10"
+                        FontSize="16" />
+                <Button Content="Cancel"
+                        Padding="20,10"
+                        FontSize="16" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>
